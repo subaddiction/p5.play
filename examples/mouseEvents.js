@@ -21,25 +21,27 @@ function setup() {
   //if defined, the collider will be used for mouse events
   asterisk.setCollider('circle', 0, 0, 64);
 
-  //I can assign functions to be called upon specific mouse events
-  //within the function "this" will reference the sprite that triggered the event
-  asterisk.onMouseOver = function() {
-    this.changeAnimation('stretch');
-  };
-
-  asterisk.onMouseOut = function() {
-    this.changeAnimation('normal');
-  };
-
-  asterisk.onMousePressed = function() {
-    this.changeAnimation('transform');
-    this.animation.goToFrame(this.animation.getLastFrame());
-  };
-
-  asterisk.onMouseReleased = function() {
-    this.changeAnimation('transform');
-    this.animation.goToFrame(0);
-  };
+	if(supportsTouch){
+		asterisk.onMouseOver = function() {
+			this.changeAnimation('transform');
+			this.animation.goToFrame(this.animation.getLastFrame());
+		};
+		
+		asterisk.onMouseOut = function() {
+			this.changeAnimation('transform');
+			this.animation.goToFrame(0);
+		};
+		
+	} else {
+		asterisk.onMousePressed = function() {
+			this.changeAnimation('transform');
+			this.animation.goToFrame(this.animation.getLastFrame());
+		};
+		asterisk.onMouseReleased = function() {
+			this.changeAnimation('transform');
+			this.animation.goToFrame(0);
+		};
+	}
 
 }
 
@@ -55,3 +57,13 @@ function draw() {
 
   drawSprites();
 }
+
+
+
+
+var supportsTouch = false;
+if ('ontouchstart' in window) {
+    //iOS & android
+    supportsTouch = true;
+}
+
