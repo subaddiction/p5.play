@@ -105,7 +105,10 @@ if(supportsTouch){
 			if(allSprites.get(i).mouseIsOver){
 				allSprites.get(i).onMouseReleased();
 			}
-			allSprites.get(i).mouseWasOver = false;
+			if(allSprites.get(i).mouseWasOver == true){
+				allSprites.get(i).mouseWasOver = false;
+			}
+			
 		}
 	}
 	
